@@ -65,22 +65,42 @@
       </div>
     </div>
   </div> -->
-  <div class="flip m-5">
-    <div
-      class="front"
-      style="
-        background-image: url(https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb);
-      "
-    >
-      <h1 class="text-shadow">MOUNTAIN</h1>
-    </div>
-    <div class="back">
-      <h2>Angular</h2>
-      <p>
-        Good tools make application development quicker and easier to maintain
-        than if you did everything by hand..
-      </p>
-      <a href="google.com">tes</a>
+  <div>
+    <h1 class="text-shadow">{{product.name}}</h1>
+    <div class="flip mx-5">
+      <div
+        class="front"
+        :style="{ backgroundImage: `url(${product.image_url})`}">
+      </div>
+      <div class="back">
+        <h2>Mini Description</h2>
+        <p>
+          May the product be useful for anyone in need
+        </p>
+        <button v-if="product.stock" type="button" class="btn btn-success mt-5" @click.prevent="addProductToCart(product.id)">
+              <i class="fa fa-cart-plus" aria-hidden="true"></i> Add to Cart
+            </button>
+            <span class="mx-3"> </span>
+            <button v-if="product.stock" type="button" class="btn btn-danger mt-5" @click.prevent="addProductToWishlist(product.id)">
+              <i class="fa fa-heart" aria-hidden="true"></i> Add to Wishlist
+            </button>
+        <div class="row w-100" style="padding-top: 50px">
+              <div class="col-6">
+                <h5 class="font-weight-bold description">IDR</h5>
+              </div>
+              <div class="col-6">
+                <h5 class="font-weight-bold description">Stock</h5>
+              </div>
+            </div>
+            <div class="row w-100">
+              <div class="col-6">
+                <h5 class="description"><small>{{filteredPrice}}</small></h5>
+              </div>
+              <div class="col-6">
+                <h5 class="description"><small>{{product.stock}} unit</small></h5>
+              </div>
+            </div>
+      </div>
     </div>
   </div>
 </template>
@@ -88,7 +108,20 @@
 <script>
 export default {
   name: 'ProductCard',
-  props: ['product']
+  props: ['product'],
+  computed: {
+    filteredPrice () {
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(this.product.price)
+    }
+  },
+  methods: {
+    addProductToCart (productId) {
+      this.$store.dispatch('addProductToCart', productId)
+    },
+    addProductToWishlist (productId) {
+      this.$store.dispatch('addProductToWishlist', productId)
+    }
+  }
 }
 </script>
 
@@ -160,9 +193,9 @@ h1 {
   width: inherit;
   background-size: cover !important;
   background-position: center !important;
-  height: 220px;
+  height: 400px;
   padding: 1em 2em;
-  background: #313131;
+  background: #525252;
   border-radius: 10px;
 }
 .flip > .front p,

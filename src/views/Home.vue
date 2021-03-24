@@ -4,7 +4,7 @@
     <div class="text-center backgroundIMG mb-5">
       <img class="" style="max-height: 500px;" src="https://i.imgur.com/z3luEyU.jpg" alt="">
     </div>
-    <h1 class="mt-3 font-weight-bold text-uppercase">Products</h1>
+    <h1 class="my-5 font-weight-bold text-uppercase">Products</h1>
     <div class="wrapper cards">
       <ProductCard v-for="product in allProducts" :key="product.id"
         :product="product"
