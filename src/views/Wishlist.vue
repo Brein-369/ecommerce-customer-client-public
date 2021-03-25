@@ -2,7 +2,7 @@
   <div class="wishlist">
     <Navbar></Navbar>
     <div class="container">
-      <div class="title">
+      <div class="mt-5 font-weight-bold">
         <h1>User Wishlist</h1>
       </div>
       <div class="col-md-12 mb-3">

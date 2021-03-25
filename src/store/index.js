@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '@/axios/axios'
 import router from '@/router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -108,6 +109,12 @@ export default new Vuex.Store({
         }
       }).then(response => {
         console.log(response.data)
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }).catch(err => {
         console.log(err.response.data)
       })
@@ -122,6 +129,12 @@ export default new Vuex.Store({
       }).then(response => {
         console.log(response.data)
         context.dispatch('getAllWishlist')
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }).catch(err => {
         console.log(err.response.data)
       })
@@ -139,6 +152,12 @@ export default new Vuex.Store({
         }
       }).then(response => {
         console.log(response.data)
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }).catch(err => {
         console.log(err.response.data)
       })
@@ -153,6 +172,12 @@ export default new Vuex.Store({
       }).then(response => {
         console.log(response.data)
         context.dispatch('getAllCart')
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }).catch(err => {
         console.log(err.response.data)
       })
@@ -195,8 +220,21 @@ export default new Vuex.Store({
       }).then(response => {
         console.log(response.data)
         context.dispatch('getAllCart')
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: response.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        })
       }).catch(err => {
         console.log(err.response.data)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'looks like the stock quantity has been changeg, please check the product again to see stock changes ',
+          footer: `error message: ${err.response.data.theErr[0]}`
+        })
       })
     }
   },

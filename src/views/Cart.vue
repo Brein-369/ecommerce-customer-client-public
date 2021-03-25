@@ -2,7 +2,7 @@
   <div class="cart">
     <Navbar></Navbar>
     <div class="container">
-      <div class="title">
+      <div class="mt-5 font-weight-bold">
         <h1>User Cart</h1>
       </div>
       <div class="col-md-12 mb-3">
@@ -34,7 +34,17 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-success mx-auto w-25">
+      <hr>
+      <div class="row justify-space-between">
+
+        <div class="col-8 text-right">
+          <h2>Total Price</h2>
+        </div>
+        <div class="col-4">
+          {{getAllPrice}}
+        </div>
+      </div>
+      <button class="btn btn-success mx-auto w-25 mt-5">
         <i class="material-icons" @click.prevent="checkout">Checkout Here</i>
         </button>
     </div>
@@ -54,7 +64,15 @@ export default {
   computed: {
     ...mapState({
       allCart: 'allCart'
-    })
+    }),
+    getAllPrice () {
+      let total = 0
+      this.allCart.forEach(element => {
+        total += (element.quantity * element.Product.price)
+      })
+      // return total
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(total)
+    }
   },
   methods: {
     getAllCart () {
